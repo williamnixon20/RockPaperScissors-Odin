@@ -1,3 +1,5 @@
+buttons = document.querySelectorAll('button');
+
 function computerSelection() {
     options = ["ROCK", "PAPER", "SCISSORS"];
     index = Math.floor((Math.random()*3));
@@ -34,29 +36,38 @@ function simulateRound(playerSelection, computerSelection) {
     }    
 }
 
-function game() {
-
-    let win = 0, lose = 0;
-    for (let i = 0; i < 5; i++) {
-        userDecision = prompt("What are you selecting? (Rock/Paper/Scissors)").toUpperCase().trim();
-        computerDecision = computerSelection();
-
-        result = simulateRound(userDecision, computerDecision);
-        console.log(result);
-        if (result.includes("win")) {
-            win++;
-        } else if (result.includes("lose")) {
-            lose++;
-        } 
-    }
-
+function evaluate(win, lose) {
     if (win > lose) {
-        return "You win!";
+        document.querySelector('#jombotron').innerHTML = "Hooray!";
     } else if (win < lose) {
-        return "You lose!";
-    } else {
-        return "Tie!";
+        document.querySelector('#jombotron').innerHTML = "Noob!";
     }
+
+    buttons.forEach((button) => {
+        button.setAttribute('disabled', ' ');
+    })
+}
+function game() {
+    let win = 0, lose = 0;
+
+    buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+            userDecision = button.id;
+            computerDecision = computerSelection();
+            result = simulateRound(userDecision, computerDecision);
+            document.querySelector('#display').textContent = `${result}`;
+            if (result.includes("win")) {
+                win++;
+                document.querySelector('#wins').textContent= `${win}`;
+            } else if (result.includes("lose")) {
+                lose++;
+                document.querySelector('#loses').textContent= `${lose}`;
+            }
+            if (win >=5 || lose >= 5) {
+                evaluate(win, lose);
+            }
+        })
+    });
 }
 
-console.log(game());
+game();
