@@ -1,4 +1,11 @@
-buttons = document.querySelectorAll('button');
+windisplay = document.getElementById('wins');
+losedisplay = document.getElementById('loses');
+buttons = document.querySelectorAll('.gamebutton');
+jombotron = document.querySelector('.title');
+modal = document.querySelector('.modal');
+retry = document.getElementById('restartBtn');
+display = document.querySelector('#display');
+endgamemsg = document.getElementById('endgameMsg');
 
 function computerSelection() {
     options = ["ROCK", "PAPER", "SCISSORS"];
@@ -37,34 +44,54 @@ function simulateRound(playerSelection, computerSelection) {
 }
 
 function evaluate(win, lose) {
+    console.log(jombotron);
     if (win > lose) {
-        document.querySelector('.title').innerHTML = "You won, Hooray!";
+        jombotron.textContent = "You won, Hooray!";
+        endgamemsg.textContent = "Well done!"
     } else if (win < lose) {
-        document.querySelector('.title').innerHTML = "You lost :(";
+        jombotron.textContent = "You lost :(";
+        endgamemsg.textContent = "Better luck next time!"
     }
-
-    buttons.forEach((button) => {
-        button.setAttribute('disabled', ' ');
-    })
 }
-function game() {
-    let win = 0, lose = 0;
 
+function handleEnding() {
+    modal.classList.add("active"); 
+    retry.addEventListener('click', () => closeEndGameModal());
+}
+
+function closeEndGameModal() {
+    modal.classList.remove('active');
+    restartGame();
+}
+
+function restartGame() {
+    windisplay.textContent = `Player : 0`;
+    losedisplay.textContent =  `Computer : 0`;
+    display.textContent = "";
+    jombotron.textContent = "Let the fight begin!"
+    win = 0, lose = 0;
+}
+
+var win = 0, lose = 0;
+function game() {
     buttons.forEach((button) => {
         button.addEventListener('click', () => {
             userDecision = button.id;
             computerDecision = computerSelection();
             result = simulateRound(userDecision, computerDecision);
-            document.querySelector('#display').textContent = `${result}`;
+
+            display.textContent = `${result}`;
             if (result.includes("win")) {
                 win++;
-                document.querySelector('#wins').textContent= `${win}`;
+                windisplay.textContent = `Player : ${win}`;
             } else if (result.includes("lose")) {
                 lose++;
-                document.querySelector('#loses').textContent= `${lose}`;
+                losedisplay.textContent= `Computer : ${lose}`;
             }
+
             if (win >=5 || lose >= 5) {
                 evaluate(win, lose);
+                handleEnding();
             }
         })
     });

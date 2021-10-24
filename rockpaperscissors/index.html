@@ -25,17 +25,15 @@
             <div class="scores-container">
                 <div class="statement" id='display'></div>
                 <div class="score">
-                    <p id="playerScore" id='wins'>Player: 0</p>
-                </div>
-                <div class="score">
-                    <p id="computerScore" id='loses'>Computer: 0</p>
-                </div>     
+                    <div id='wins'>Player: 0</div>
+                    <div id='loses'>Computer: 0</div>
+                </div>   
             </div>
         </div>
         <div class="buttons">
-            <button id='ROCK'><i class='fa fa-hand-rock'></i></button>
-            <button id='PAPER'><i class='fa fa-hand-paper'></i></button>
-            <button id='SCISSORS'><i class='fa fa-hand-scissors'></i></button>
+            <button class = "gamebutton" id='ROCK'><i class='fa fa-hand-rock'></i></button>
+            <button class = "gamebutton" id='PAPER'><i class='fa fa-hand-paper'></i></button>
+            <button class = "gamebutton" id='SCISSORS'><i class='fa fa-hand-scissors'></i></button>
         </div>
     </main>
 
@@ -43,6 +41,11 @@
         <p>Made by wiliamn20 <a href=https://github.com/williamnixon20/TheOdinProject/tree/main/rockpaperscissors><i class="fab fa-github"></i></a></p>
     </footer>  
 
+    <div class="modal" id="endgameModal">
+      <p class="message bold" id="endgameMsg"></p>
+      <p class="message">Would you like to try again?</p>
+      <button class="btn btn-restart" id="restartBtn">Restart</button>
+    </div>
 </body>
 
 </html>
