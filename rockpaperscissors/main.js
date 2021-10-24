@@ -38,9 +38,9 @@ function simulateRound(playerSelection, computerSelection) {
 
 function evaluate(win, lose) {
     if (win > lose) {
-        document.querySelector('#jombotron').innerHTML = "Hooray!";
+        document.querySelector('.title').innerHTML = "You won, Hooray!";
     } else if (win < lose) {
-        document.querySelector('#jombotron').innerHTML = "Noob!";
+        document.querySelector('.title').innerHTML = "You lost :(";
     }
 
     buttons.forEach((button) => {
